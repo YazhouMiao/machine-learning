@@ -20,39 +20,21 @@ p = zeros(size(X, 1), 1);
 %       information see 'help max'. If your examples are in rows, then, you
 %       can use max(A, [], 2) to obtain the max for each row.
 %
-X = [ones(m) X]
+X = [ones(m,1) X];
 a1_val = sigmoid(X * Theta1');
-for i = 1:size(a1_val,1)
-  for j = 1:size(a1_val,2)
-    if a1_val(i,j) >= 0.5
-      a1_val(i,j) = 1;
-    else 
-      a1_val(i,j) = 0;
-    end
-  end
-end
 
-a1_val = [ones(size(a1_val,1)) a1_val];
+%pos = find(a1_val >= 0.5);
+%a1_val(pos) = 1;
 
-a2_val = sigmoid(a2_val * Theta2);
+%pos = find(a1_val < 0.5);
+%a1_val(pos) = 0;
 
-for i = 1:size(a2_val,1)
-  for j = 1:size(a2_val,2)
-    if a2_val(i,j) >= 0.5
-      a2_val(i,j) = 1;
-    else 
-      a2_val(i,j) = 0;
-    end
-  end
-end
+a1_val = [ones(size(a1_val,1),1) a1_val];
 
-[C,p] = max(a2_val);
+a2_val = sigmoid(a1_val * Theta2');
 
-
-
-
-
-
+[C, index] = max(a2_val');
+p = index';
 
 % =========================================================================
 
